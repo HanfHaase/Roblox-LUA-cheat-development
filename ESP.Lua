@@ -3,7 +3,7 @@ local UserInputService = game:GetService("UserInputService")
 local highlight = Instance.new("Highlight")
 highlight.Name = "Highlight"
 
-local espEnabled = false -- Variable to store the ESP state
+local espEnabled = false
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "ESPGui"
@@ -17,7 +17,7 @@ ToggleButton.BackgroundColor3 = Color3.new(0, 0, 0)
 ToggleButton.BorderSizePixel = 0
 ToggleButton.Text = "ESP: OFF"
 ToggleButton.TextColor3 = Color3.new(1, 1, 1)
-ToggleButton.TextSize = 7 -- Half the font size
+ToggleButton.TextSize = 7 -- Half font size
 ToggleButton.TextStrokeTransparency = 0 -- No transparency for text stroke
 ToggleButton.TextStrokeColor3 = Color3.new(0, 0, 0) -- Black color for text stroke
 ToggleButton.Parent = ScreenGui
@@ -29,7 +29,7 @@ local function makeWallsTransparent()
     if walls then
         for _, wall in ipairs(walls:GetDescendants()) do
             if wall:IsA("BasePart") then
-                wall.SurfaceTransparency = 1 -- Set transparency to 100%
+                wall.SurfaceTransparency = 1 -- transparency 100%
             end
         end
     end
@@ -50,14 +50,14 @@ local function updatePlayerHighlights()
                 highlightClone.Name = "Highlight"
             end
             
-            highlightClone.FillColor = v.Team and v.Team.TeamColor.Color or Color3.new(1, 1, 1) -- Use team color if available, otherwise white
-            highlightClone.OutlineColor = v.Team and v.Team.TeamColor.Color or Color3.new(1, 1, 1) -- Use team color if available, otherwise white
+            highlightClone.FillColor = v.Team and v.Team.TeamColor.Color or Color3.new(1, 1, 1) -- team color if available, otherwise white
+            highlightClone.OutlineColor = v.Team and v.Team.TeamColor.Color or Color3.new(1, 1, 1) -- team color if available, otherwise white
         end
     else
         for i, v in ipairs(game:GetService("Players"):GetPlayers()) do
             local highlightClone = v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight")
             if highlightClone then
-                highlightClone.Transparency = 1 -- Set transparency to 100% to remove highlights gradually
+                highlightClone.Transparency = 1 -- transparency 100% remove highlights
             end
         end
     end
@@ -70,7 +70,7 @@ local function toggleESP()
     ToggleButton.Text = "ESP: " .. (espEnabled and "ON" or "OFF")
     
     if espEnabled then
-        updatePlayerHighlights() -- Update highlights when enabling ESP
+        updatePlayerHighlights() -- Update highlights - ESP
     else
         for i, v in ipairs(game:GetService("Players"):GetPlayers()) do
             local highlightClone = v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight")
@@ -119,8 +119,7 @@ end)
 
 RunService.Heartbeat:Connect(function()
     if espEnabled then
-        updatePlayerHighlights() -- Only update highlights if ESP is enabled
-    end
+        updatePlayerHighlights() -- update
 end)
 
 updatePlayerHighlights() -- Initial update
